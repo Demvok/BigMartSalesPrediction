@@ -1,5 +1,6 @@
-stat,value
-alpha,0.05
-std,1706.499615733833
-freedom_coef,8523.0
-z_score,1.9602423609835666
+,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+Item_Fat_Content,Low Fat,Regular,,,,,,,,,,,,,,
+Item_Type,Baking Goods,Breads,Breakfast,Canned,Dairy,Frozen Foods,Fruits and Vegetables,Hard Drinks,Health and Hygiene,Household,Meat,Others,Seafood,Snack Foods,Soft Drinks,Starchy Foods
+Outlet_Size,High,Medium,Small,undefined,,,,,,,,,,,,
+Outlet_Location_Type,1,2,3,,,,,,,,,,,,,
+Outlet_Type,G,S1,S2,S3,,,,,,,,,,,,
