@@ -4,12 +4,12 @@ import pyspark as sp
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import DecisionTreeRegressionModel
-spark = SparkSession.builder.appName('BigMartSales').getOrCreate()
 
+spark = SparkSession.builder.appName('BigMartSales').getOrCreate()
 model = DecisionTreeRegressionModel.load('model')
 encoder = pd.read_csv('constants/encoder.csv', index_col=0)
 
-def getInterval(pred):
+def getInterval(pred): 
     df_stats = pd.read_csv('constants/stats.csv', index_col='stat')
     Z_SCORE = df_stats.loc['z_score'].values[0]
     STD = df_stats.loc['std'].values[0]
@@ -54,46 +54,36 @@ while True:
     print('2. Single item')
     response = input('> ')
     if (response == '1'):
-        print('Your file must be in correct format (.csv): ["Item weight", "Is item Low Fat", "Item visibility", "Item type", "Item MRP", "Outlet age", "Outlet size", "Outlet location type", "Outlet type"')
+        print('Your file must be in correct format (.csv): ["Item weight", "Is item Low Fat", "Item visibility", "Item type", "Item MRP", "Outlet age", "Outlet size", "Outlet location type", "Outlet type"]')
         availible_files = os.listdir('data')
-        print(*[f"{i+1}. {availible_files[i]}\n" for i in range(len(availible_files))])
-        response = int(input()) - 1
+        print(*[f"{i+1}. {availible_files[i]}\n" for i in range(len(availible_files))], end='')
+        response = int(input('>')) - 1
         predict_file("data/" + availible_files[response])
     else:
         params = [-1 for _ in range(9)]
         print('Please, fill following fields')
-
         print('Item weight ~(4-21): ', end='')
-        params[0] = int(input())
-
+        params[0] = float(input())
         print('Is item Low Fat (0/1): ', end='')
-        params[1] = int(input())
-        
+        params[1] = int(input())        
         print('Item visibility ~(0-0.5): ', end='')
-        params[2] = float(input())
-        
+        params[2] = float(input())        
         print('Item type: ')
         print(encoder.loc['Item_Type'].dropna().to_string())
         params[3] = int(input('> '))
-
         print('Item MRP ~(30-270): ', end='')
-        params[4] = int(input())
-        
+        params[4] = float(input())        
         print('Outlet age ~(0-40): ', end='')
-        params[5] = int(input())
-        
+        params[5] = int(input())        
         print('Outlet size: ')
         print(encoder.loc['Outlet_Size'].dropna().to_string())
-        params[6] = int(input('> '))
-        
+        params[6] = int(input('> '))        
         print('Outlet location type: ')
         print(encoder.loc['Outlet_Location_Type'].dropna().to_string())
-        params[7] = int(input('> '))
-        
+        params[7] = int(input('> '))        
         print('Outlet type: ')
         print(encoder.loc['Outlet_Type'].dropna().to_string())
         params[8] = int(input('> '))
-
         if -1 in params:
             print('Input error! Try again')
         else:
